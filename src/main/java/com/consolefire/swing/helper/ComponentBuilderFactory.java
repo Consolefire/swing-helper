@@ -9,17 +9,6 @@ import javax.swing.KeyStroke;
 
 public class ComponentBuilderFactory {
 
-    private static final String DEFAULT_IMAGE_PATH = "/defaults/images/";
-    public static final ImageIcon _ICON;
-    public static final ImageIcon HIDE_ME_ICON;
-    public static final ImageIcon EXIT_ICON;
-
-    static {
-        _ICON = new ImageIcon(ComponentBuilderFactory.class.getResource(DEFAULT_IMAGE_PATH + "").getFile());
-        EXIT_ICON = new ImageIcon(ComponentBuilderFactory.class.getResource(DEFAULT_IMAGE_PATH + "exit.png").getFile());
-        HIDE_ME_ICON = new ImageIcon(ComponentBuilderFactory.class.getResource(DEFAULT_IMAGE_PATH + "hide.png").getFile());
-    }
-
 
     public static class JMenuBuilder extends ComponentBuilder<JMenu> {
 

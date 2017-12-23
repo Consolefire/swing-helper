@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
@@ -17,6 +18,7 @@ import com.consolefire.swing.helper.utils.WindowUtil;
 
 public class AbstractDesktopWindowTest {
 
+    
     public static void main(String[] args) {
         OsFeatureUtil.applyOsFeatures();
         final AbstractDesktopWindow window = new AbstractDesktopWindow();
@@ -55,34 +57,7 @@ public class AbstractDesktopWindowTest {
                                 JOptionPane.showConfirmDialog(window, "Extract To");
                             }
                         }).build())
-                .withSeparator()
-                .withItem(JMenuItemBuilder.create().withLabel("Hide me ...")
-                        .withKeyStroke(KeyStrokeGenerator.create(KeyEvent.VK_H)
-                                .withModifier(Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()).generate())
-                        .withAction(new ActionListener() {
-
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                WindowUtil.minimizeToTray(window, ComponentBuilderFactory.HIDE_ME_ICON.getImage(), new ActionListener() {
-                                    
-                                    @Override
-                                    public void actionPerformed(ActionEvent e) {
-                                        JOptionPane.showConfirmDialog(window, "hiding To");
-                                    }
-                                });
-                            }
-                        }).withIcon(ComponentBuilderFactory.HIDE_ME_ICON).build())
-                .withSeparator()
-                .withItem(JMenuItemBuilder.create().withLabel("Exit")
-                        .withKeyStroke(KeyStrokeGenerator.create(KeyEvent.VK_Q)
-                                .withModifier(Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()).generate())
-                        .withAction(new ActionListener() {
-
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                System.exit(0);
-                            }
-                        }).withIcon(ComponentBuilderFactory.EXIT_ICON).build())
+                
                 .build();
         window.addMenu(menu);
 
