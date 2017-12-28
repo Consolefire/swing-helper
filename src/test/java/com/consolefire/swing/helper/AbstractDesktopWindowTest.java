@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
@@ -14,14 +13,19 @@ import com.consolefire.swing.helper.ComponentBuilderFactory.JMenuBuilder;
 import com.consolefire.swing.helper.ComponentBuilderFactory.JMenuItemBuilder;
 import com.consolefire.swing.helper.ComponentBuilderFactory.KeyStrokeGenerator;
 import com.consolefire.swing.helper.utils.OsFeatureUtil;
-import com.consolefire.swing.helper.utils.WindowUtil;
 
 public class AbstractDesktopWindowTest {
 
-    
+
     public static void main(String[] args) {
         OsFeatureUtil.applyOsFeatures();
-        final AbstractDesktopWindow window = new AbstractDesktopWindow();
+        final AbstractDesktopWindow window = new AbstractDesktopWindow() {
+            @Override
+            protected void initComponents() {
+                // TODO Auto-generated method stub
+
+            }
+        };
         JMenu menu = JMenuBuilder.create().withLabel("File")
                 .withItem(JMenuItemBuilder.create().withLabel("Open")
                         .withKeyStroke(KeyStrokeGenerator.create(KeyEvent.VK_O)
@@ -32,8 +36,7 @@ public class AbstractDesktopWindowTest {
                             public void actionPerformed(ActionEvent e) {
                                 JOptionPane.showConfirmDialog(window, "Open");
                             }
-                        })
-                        .build())
+                        }).build())
                 .withSeparator()
                 .withItem(JMenuItemBuilder.create().withLabel("Extract")
                         .withKeyStroke(KeyStrokeGenerator.create(KeyEvent.VK_X)
@@ -57,7 +60,7 @@ public class AbstractDesktopWindowTest {
                                 JOptionPane.showConfirmDialog(window, "Extract To");
                             }
                         }).build())
-                
+
                 .build();
         window.addMenu(menu);
 

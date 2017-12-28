@@ -64,7 +64,7 @@ public class WindowManager implements InternalFrameListener {
         }
     }
 
-    protected void addIFrame(JInternalFrame internalFrame) {
+    public void addIFrame(JInternalFrame internalFrame) {
         isInitialized();
         if (internalFrameMap.containsKey(internalFrame.getTitle())) {
             showFrame(internalFrame);
@@ -205,11 +205,11 @@ public class WindowManager implements InternalFrameListener {
         }
     }
 
-    protected boolean containsFrame(String frameTitle) {
+    public boolean containsFrame(String frameTitle) {
         return internalFrameMap.containsKey(frameTitle);
     }
 
-    protected void showFrame(String frameTitle) {
+    public void showFrame(String frameTitle) {
         showFrame(internalFrameMap.get(frameTitle));
     }
 

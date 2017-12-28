@@ -8,11 +8,11 @@ import java.util.ResourceBundle;
  *
  */
 public class ResourceBundleManager {
+
     private static ResourceBundleManager bundleManager;
     public static final String DEFAULT_LOCATION = "i18n/message";
     private Locale defaultLocale;
     private Locale currentLocale;
-
 
     private ResourceBundleManager() {
         defaultLocale = Locale.getDefault();
@@ -20,8 +20,9 @@ public class ResourceBundleManager {
     }
 
     public static ResourceBundleManager getBundleManager() {
-        if (null != bundleManager)
+        if (null != bundleManager) {
             return bundleManager;
+        }
 
         synchronized (ResourceBundleManager.class) {
             if (null == bundleManager) {
@@ -51,4 +52,3 @@ public class ResourceBundleManager {
         return ResourceBundle.getBundle(DEFAULT_LOCATION, getCurrentLocale());
     }
 }
-
