@@ -21,10 +21,10 @@ public class AbstractDesktopWindowTest {
         OsFeatureUtil.applyOsFeatures();
         final AbstractDesktopWindow window = new AbstractDesktopWindow() {
             @Override
-            protected void initComponents() {
-                // TODO Auto-generated method stub
-
+            protected void doInInit() {
+                
             }
+            
         };
         JMenu menu = JMenuBuilder.create().withLabel("File")
                 .withItem(JMenuItemBuilder.create().withLabel("Open")

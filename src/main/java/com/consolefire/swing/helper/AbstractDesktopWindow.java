@@ -62,14 +62,14 @@ public abstract class AbstractDesktopWindow extends JFrame {
         getContentPane().add(toolBar, BorderLayout.NORTH);
         getContentPane().add(desktopPane, BorderLayout.CENTER);
         getContentPane().add(statusBar, BorderLayout.SOUTH);
-        initComponents();
+        doInInit();
         pack();
 
         WINDOW_MANAGER.init(windowManagerLabel, desktopPane, windowManagerPopupMenu);
         WindowUtil.bringToCenter(this);
     }
 
-    protected abstract void initComponents();
+    protected abstract void doInInit();
 
     public void addMenu(JMenu menu) {
         this.desktopMenuBar.add(menu);
