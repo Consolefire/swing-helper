@@ -10,50 +10,49 @@ import lombok.Setter;
 
 public class ApplicationEventManager {
 
-    private static ApplicationEventManager instance;
-    private Map<Class<?>, List<BaseEventListener>> allListeners;
-    
-    @Getter
-    @Setter
-    private ApplicationEventDeligate applicationEventDeligate;
+	private static volatile ApplicationEventManager instance;
+	private Map<Class<?>, List<? extends BaseEventListener>> allListeners;
 
-    private ApplicationEventManager() {
-        this.allListeners = new HashMap<>();
-    }
+	@Getter
+	@Setter
+	private ApplicationEventDeligate applicationEventDeligate;
 
-    public static ApplicationEventManager getInstance() {
-        if (null != instance)
-            return instance;
-        synchronized (ApplicationEventManager.class) {
-            if (null == instance) {
-                instance = new ApplicationEventManager();
-            }
-        }
-        return instance;
-    }
+	private ApplicationEventManager() {
+		this.allListeners = new HashMap<>();
+	}
 
-    public synchronized void registerListener(final Class<?> eventType, final BaseEventListener listener) {
-        if (null == allListeners.get(eventType)) {
-            allListeners.put(eventType, new ArrayList<BaseEventListener>());
-        }
-        allListeners.get(eventType).add(listener);
-    }
+	public static ApplicationEventManager getInstance() {
+		synchronized (ApplicationEventManager.class) {
+			if (null == instance) {
+				synchronized (ApplicationEventManager.class) {
+					instance = new ApplicationEventManager();
+				}
+			}
+		}
+		return instance;
+	}
 
-    public synchronized void unregisterListener(final Class eventType) {
-        allListeners.remove(eventType);
-    }
+	public synchronized <L extends BaseEventListener> void registerListener(final Class<?> eventType, final L listener) {
+		if (null == allListeners.get(eventType)) {
+			allListeners.put(eventType, new ArrayList<L>());
+		}
+		List<L> list = (List<L>) allListeners.get(eventType);
+		list.add(listener);
+	}
 
-    public synchronized void fireEvent(ApplicationEvent event) {
-        if (null == event || null == applicationEventDeligate)
-            return;
-        List<BaseEventListener> listeners = allListeners.get(event.getClass());
-        if (null != listeners) {
-            for (BaseEventListener listener : listeners) {
-                applicationEventDeligate.doFire(event, listener);
-            }
-        }
-    }
+	public synchronized void unregisterListener(final Class<?> eventType) {
+		allListeners.remove(eventType);
+	}
 
-
+	public synchronized <L extends BaseEventListener> void fireEvent(ApplicationEvent event) {
+		if (null == event || null == applicationEventDeligate)
+			return;
+		List<L> listeners = (List<L>) allListeners.get(event.getClass());
+		if (null != listeners) {
+			for (BaseEventListener listener : listeners) {
+				applicationEventDeligate.doFire(event, listener);
+			}
+		}
+	}
 
 }
